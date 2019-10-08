@@ -87,7 +87,7 @@
 	<tfoot>
 		<tr>
 			<td colspan=10>
-				{{$users->links()}}
+				{{$users->appends(Request::all())->links()}}
 			</td>
 		</tr>
 	</tfoot>
