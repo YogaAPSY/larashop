@@ -6,18 +6,21 @@
 
 @section("content")
 
-<div class="row">
-	<div class="col-md-6">
-		<form action="{{route('users.index')}}">
-		<div class="input-group mb-3">
-			<input value="{{Request::get('keyword')}}" name="keyword" class="form-control col-md-10" type="text" placeholder="Filter berdasarkan email"/>
-			<div class="input-group-append">
-			<input type="submit" value="Filter" class="btn btn-primary">
-			</div>
+<form action="{{route('users.index')}}">
+	<div class="row">
+		<div class="col-md-6">
+			<input value="{{Request::get('keyword')}}" name="keyword" class="form-control" type="text" placeholder="Masukan email untuk filter..."/>
 		</div>
-		</form>
+		<div class="col-md-6">
+			<input {{Request::get('status') == 'ACTIVE' ? 'checked' : ''}} value="ACTIVE" name="status" type="radio" class="form-control" id="active">
+			<label for="active">Active</label>
+			<input {{Request::get('status') == 'INACTIVE' ? 'checked' : ''}} value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
+
+			<label for="inactive">Inactive</label>
+			<input type="submit" value="Filter" class="btn btn-primary">
 	</div>
 </div>
+</form>
 <br>
 
 @if(session('status'))
@@ -81,5 +84,12 @@
 		</tr>
 		@endforeach
 	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan=10>
+				{{$users->links()}}
+			</td>
+		</tr>
+	</tfoot>
 </table>
 @endsection
